@@ -1,0 +1,25 @@
+{
+    "name": "yiidoc/yii2-selectize",
+    "description": "The Selectize Js Bootstrap extension for the Yii2 framework.",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiidoc/yii2-selectize/issues?state=open",
+        "source": "https://github.com/yiidoc/yii2-selectize"
+    },
+    "authors": [
+        {
+            "name": "Nghia Nguyen",
+            "email": "zinzinday@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "bower-asset/selectize": ">=0.11.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "yii\\selectize\\": ""
+        }
+    }
+}
