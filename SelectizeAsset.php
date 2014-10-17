@@ -13,7 +13,7 @@ class SelectizeAsset extends AssetBundle
 {
     public $sourcePath = '@bower/selectize/dist';
     public $depends =[
-        'yii\bootstrap\BootstrapAsset'
+        'yii\selectize\MicroPluginAsset'
     ];
     public $js = ['js/selectize.js'];
     public $css = ['css/selectize.bootstrap3.css'];
