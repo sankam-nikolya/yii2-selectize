@@ -16,5 +16,5 @@ class SifterAsset extends AssetBundle
     public $depends =[
         'yii\web\YiiAsset'
     ];
-    public $js = ['microplugin.js'];
+    public $js = ['sifter.js'];
 } 
