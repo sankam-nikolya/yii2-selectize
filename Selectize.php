@@ -19,12 +19,13 @@ class Selectize extends InputWidget
 
     public function init()
     {
-        if ($this->hasModel()) {
-            $this->options['id'] = Html::getInputId($this->model, $this->attribute);
-        } else {
-            $this->options['id'] = $this->id;
+        if (!isset($this->options['id'])) {
+            if ($this->hasModel()) {
+                $this->options['id'] = Html::getInputId($this->model, $this->attribute);
+            } else {
+                $this->options['id'] = $this->id;
+            }
         }
-
         $this->registerAssetBundle();
         $this->registerJs();
         $this->registerEvents();
@@ -41,6 +42,8 @@ class Selectize extends InputWidget
 
     public function registerAssetBundle()
     {
+        MicroPluginAsset::register($this->getView());
+        SifterAsset::register($this->getView());
         SelectizeAsset::register($this->getView());
     }
 

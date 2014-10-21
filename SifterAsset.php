@@ -2,15 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: Nghia
- * Date: 10/18/2014
- * Time: 3:19 AM
+ * Date: 10/22/2014
+ * Time: 4:29 AM
  */
 
 namespace yii\selectize;
+
 use yii\web\AssetBundle;
 
-class MicroPluginAsset extends AssetBundle{
-    public $sourcePath = '@bower/microplugin/src';
+class SifterAsset extends AssetBundle
+{
+    public $sourcePath = '@bower/sifter';
     public $depends =[
         'yii\web\YiiAsset'
     ];
