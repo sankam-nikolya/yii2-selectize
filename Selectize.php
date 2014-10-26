@@ -9,11 +9,14 @@
 namespace yii\selectize;
 
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\InputWidget;
+use yii\helpers\Json;
 
 class Selectize extends InputWidget
 {
+    public $items = [];
     public $clientOptions;
     public $clientEvents;
 
@@ -34,14 +37,25 @@ class Selectize extends InputWidget
     public function run()
     {
         if ($this->hasModel()) {
-            echo Html::activeTextInput($this->model, $this->attribute, $this->options);
+            if (empty($this->items)) {
+                echo Html::activeTextInput($this->model, $this->attribute, $this->options);
+            } else {
+                echo Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
+            }
         } else {
-            echo Html::textInput($this->name, $this->value, $this->options);
+            if (empty($this->items)) {
+                echo Html::textInput($this->name, $this->value, $this->options);
+            } else {
+                echo Html::dropDownList($this->name, $this->value, $this->items, $this->options);
+            }
         }
     }
 
     public function registerAssetBundle()
     {
+        if (isset($this->clientOptions['plugins']) && array_search('drag_drop', $this->clientOptions['plugins'])) {
+            JuiAsset::register($this->getView());
+        }
         MicroPluginAsset::register($this->getView());
         SifterAsset::register($this->getView());
         SelectizeAsset::register($this->getView());
@@ -49,6 +63,9 @@ class Selectize extends InputWidget
 
     public function registerJs()
     {
+        if (!isset($this->clientOptions['create']) && empty($this->items)) {
+            $this->clientOptions['create'] = "function(input) { return { value: input, text: input };}";
+        }
         $clientOptions = (count($this->clientOptions)) ? Json::encode($this->clientOptions) : '';
         $this->getView()->registerJs("jQuery('#{$this->options['id']}').selectize({$clientOptions});");
     }
