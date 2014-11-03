@@ -9,10 +9,10 @@
 namespace yii\selectize;
 
 
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\InputWidget;
 use yii\helpers\Json;
+use yii\jui\JuiAsset;
 
 class Selectize extends InputWidget
 {
