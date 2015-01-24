@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Nghia
- * Date: 10/10/2014
- * Time: 6:43 AM
- */
-
 namespace yii\selectize;
-
 
 use yii\helpers\Html;
 use yii\widgets\InputWidget;
@@ -16,10 +8,24 @@ use yii\jui\JuiAsset;
 
 class Selectize extends InputWidget
 {
-    public $items = [];
+    /**
+     * @var array
+     */
+    public $items;
+    /**
+     * @var array
+     * @see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md#options
+     */
     public $clientOptions;
+    /**
+     * @var array
+     * @see https://github.com/brianreavis/selectize.js/blob/master/docs/events.md
+     */
     public $clientEvents;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         if (!isset($this->options['id'])) {
@@ -34,23 +40,29 @@ class Selectize extends InputWidget
         $this->registerEvents();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function run()
     {
         if ($this->hasModel()) {
-            if (empty($this->items)) {
-                echo Html::activeTextInput($this->model, $this->attribute, $this->options);
-            } else {
+            if (is_array($this->items)) {
                 echo Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
+            } else {
+                echo Html::activeTextInput($this->model, $this->attribute, $this->options);
             }
         } else {
-            if (empty($this->items)) {
-                echo Html::textInput($this->name, $this->value, $this->options);
-            } else {
+            if (is_array($this->items)) {
                 echo Html::dropDownList($this->name, $this->value, $this->items, $this->options);
+            } else {
+                echo Html::textInput($this->name, $this->value, $this->options);
             }
         }
     }
 
+    /**
+     * Register asset bundles
+     */
     public function registerAssetBundle()
     {
         if (isset($this->clientOptions['plugins']) && array_search('drag_drop', $this->clientOptions['plugins'])) {
@@ -61,6 +73,9 @@ class Selectize extends InputWidget
         SelectizeAsset::register($this->getView());
     }
 
+    /**
+     * Register client script
+     */
     public function registerJs()
     {
         if (!isset($this->clientOptions['create']) && empty($this->items)) {
@@ -70,6 +85,9 @@ class Selectize extends InputWidget
         $this->getView()->registerJs("jQuery('#{$this->options['id']}').selectize({$clientOptions});");
     }
 
+    /**
+     * Register client script handles
+     */
     public function registerEvents()
     {
         if (!empty($this->clientEvents)) {
