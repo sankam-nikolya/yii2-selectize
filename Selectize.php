@@ -65,7 +65,7 @@ class Selectize extends InputWidget
      */
     public function registerAssetBundle()
     {
-        if (isset($this->clientOptions['plugins']) && array_search('drag_drop', $this->clientOptions['plugins'])) {
+        if (isset($this->clientOptions['plugins']) && in_array('drag_drop', $this->clientOptions['plugins'])) {
             JuiAsset::register($this->getView());
         }
         MicroPluginAsset::register($this->getView());
